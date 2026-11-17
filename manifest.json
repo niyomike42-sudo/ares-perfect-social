@@ -1,0 +1,10 @@
+{
+  "name": "ARES PERFECT SOCIAL",
+  "short_name": "ARES SOCIAL",
+  "description": "Private social network for four members",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c120e",
+  "theme_color": "#101713",
+  "icons": []
+}
