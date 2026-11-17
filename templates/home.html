@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block content %}
+<div class="layout"><section class="maincol">
+<div class="card stories"><div class="sectiontitle">STORIES <small>· disappear after 24 hours</small></div>
+<div class="storyrow">{% for s in stories %}<a class="story" href="{{url_for('profile',uid=s.user_id)}}"><img src="{{url_for('static',filename=s.image)}}"><span>{{s.username}}</span></a>{% endfor %}
+<form action="/story" method="post" enctype="multipart/form-data" class="storyadd"><label>＋<input type="file" name="image" accept="image/*" required onchange="this.form.submit()"></label><span>Your story</span></form></div></div>
+<div class="card composer"><h3>Create a post</h3><form action="/post" method="post" enctype="multipart/form-data"><textarea name="caption" placeholder="What's happening?"></textarea><div class="formrow"><label class="filelabel">＋ Photo <input type="file" name="image" accept="image/*"></label><button class="primary">Share post</button></div></form></div>
+{% for p in posts %}<article class="card post"><div class="posthead"><div class="avatar">{{p.username[:1]|upper}}</div><div><b><a href="/profile/{{p.user_id}}">{{p.username}}</a></b><small>{{p.created[:16].replace('T',' ')}} UTC</small></div></div>
+{% if p.caption %}<p class="caption">{{p.caption}}</p>{% endif %}{% if p.image %}<img class="postimage" src="{{url_for('static',filename=p.image)}}">{% endif %}
+<div class="actions"><form action="/like/{{p.id}}" method="post"><button class="textbtn">{{'❤️ Liked' if p.liked else '♡ Like'}} · {{p.likes}}</button></form><span>💬 {{comments[p.id]|length}} comments</span></div>
+<div class="comments">{% for c in comments[p.id] %}<p><b>{{c.username}}</b> {{c.body}}</p>{% endfor %}</div>
+<form class="commentform" action="/comment/{{p.id}}" method="post"><input name="body" placeholder="Write a comment..." required><button>Send</button></form></article>{% else %}<div class="card empty">No posts yet. Share your first moment!</div>{% endfor %}
+</section><aside class="side"><div class="card"><h3>Your private circle</h3><p>ARES PERFECT is limited to four accounts.</p><button id="install" class="primary" onclick="installApp()" hidden>Install app</button><p class="muted">Install it on your phone or laptop from your browser menu when hosted with HTTPS.</p></div></aside></div>
+{% endblock %}

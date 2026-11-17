@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block content %}
+<section class="auth card"><div class="logo">ARES <b>PERFECT</b></div><h1>Create account</h1><p>Only four accounts can register.</p>
+<form method="post"><label>Username</label><input name="username" minlength="3" required>
+<label>Email</label><input name="email" type="email" required>
+<label>Password (8+ characters)</label><input name="password" type="password" minlength="8" required>
+<button class="primary">Create account</button></form><p>Already registered? <a href="/login">Log in</a></p></section>
+{% endblock %}

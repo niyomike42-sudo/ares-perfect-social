@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101713"><link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+<title>{% block title %}ARES PERFECT SOCIAL{% endblock %}</title>
+</head><body class="{% if me and not me['dark_mode'] %}light{% endif %}">
+{% if me %}
+<header class="topbar"><a class="brand" href="/">ARES <span>PERFECT</span></a><nav>
+<a href="/">Home</a><a href="/messages">Messages</a><a href="/notifications">Notifications</a>
+<a href="/profile/{{me['id']}}">Profile</a><a href="/settings">Settings</a><a href="/logout">Log out</a>
+</nav></header>
+{% endif %}
+<main class="wrap">
+{% with messages=get_flashed_messages(with_categories=true) %}{% for cat,msg in messages %}<div class="flash {{cat}}">{{msg}}</div>{% endfor %}{% endwith %}
+{% block content %}{% endblock %}
+</main><script>
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e=>{e.preventDefault();deferredPrompt=e;let b=document.getElementById('install');if(b)b.hidden=false;});
+async function installApp(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null;}else alert('Koresha menu ya browser: Install app canke Add to Home Screen.');}
+</script></body></html>

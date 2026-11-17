@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block content %}<div class="card"><h1>Notifications</h1>{% for n in items %}<div class="notice">{{n.body}} <small>{{n.created[:16].replace('T',' ')}} UTC</small></div>{% else %}<p>No notifications yet.</p>{% endfor %}</div>{% endblock %}
